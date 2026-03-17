@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+<meta charset="UTF-8">
+<title>SUISHOP</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="shop-name">SUI SHOP</div>
+
+<nav class="menu">
+<button onclick="showCategory('all')">TRANG CHỦ</button>
+<button onclick="showCategory('ao')">ÁO</button>
+<button onclick="showCategory('quan')">QUẦN</button>
+<button onclick="showCategory('giay')">GIÀY & DÉP</button>
+<button onclick="showCategory('phukien')">PHỤ KIỆN</button>
+</nav>
+
+<input type="text" id="search" placeholder="Tìm sản phẩm...">
+
+</header>
+
+<h2 class="title">Danh sách sản phẩm</h2>
+
+<div class="slider">
+
+<button class="nav left" onclick="prevProduct()">❮</button>
+
+<div class="products-wrapper">
+<div id="productList" class="products"></div>
+</div>
+
+<button class="nav right" onclick="nextProduct()">❯</button>
+
+</div>
+
+<h2 class="title">Giỏ hàng 🛒</h2>
+<ul id="cart"></ul>
+
+<script src="script.js"></script>
+
+</body>
+</html>
