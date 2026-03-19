@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Đăng nhập</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="auth">
+
+<h2>Đăng ký</h2>
+<input type="text" id="regUser" placeholder="Tên tài khoản">
+<input type="password" id="regPass" placeholder="Mật khẩu">
+<button onclick="register()">Tạo tài khoản</button>
+
+<h2>Đăng nhập</h2>
+<input type="text" id="loginUser" placeholder="Tên tài khoản">
+<input type="password" id="loginPass" placeholder="Mật khẩu">
+<button onclick="login()">Đăng nhập</button>
+
+<p id="authStatus"></p>
+
+<button onclick="window.location.href='index.html'" style="margin-top:10px;background:#27ae60">
+⬅ Quay lại trang chủ
+</button>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

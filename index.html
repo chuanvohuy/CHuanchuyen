@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
 <meta charset="UTF-8">
-<title>SUISHOP</title>
+<title>SUI SHOP</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -23,12 +22,17 @@
 
 <input type="text" id="search" placeholder="Tìm sản phẩm...">
 
+<div id="userBox">
+<span id="welcome"></span>
+<button id="loginBtn" onclick="goToLogin()">Đăng nhập</button>
+<button id="logoutBtn" onclick="logout()">Đăng xuất</button>
+</div>
+
 </header>
 
 <h2 class="title">Danh sách sản phẩm</h2>
 
 <div class="slider">
-
 <button class="nav left" onclick="prevProduct()">❮</button>
 
 <div class="products-wrapper">
@@ -36,13 +40,11 @@
 </div>
 
 <button class="nav right" onclick="nextProduct()">❯</button>
-
 </div>
 
 <h2 class="title">Giỏ hàng 🛒</h2>
 <ul id="cart"></ul>
 
 <script src="script.js"></script>
-
 </body>
 </html>
