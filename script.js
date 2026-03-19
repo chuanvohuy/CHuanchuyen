@@ -39,7 +39,6 @@ let currentProducts = [...products];
 let currentIndex = 0;
 let visibleProducts = 5;
 
-// ===== HIỂN THỊ SẢN PHẨM =====
 function displayProducts(list){
     let container = document.getElementById("productList");
     if(!container) return;
@@ -62,7 +61,6 @@ function displayProducts(list){
     updateSlider();
 }
 
-// ===== SLIDER =====
 function updateSlider(){
     let container = document.getElementById("productList");
     let firstProduct = document.querySelector(".product");
@@ -91,7 +89,6 @@ function prevProduct(){
     updateSlider();
 }
 
-// ===== GIỎ HÀNG =====
 function addToCart(id){
     let item = cart.find(p => p.id === id);
 
@@ -132,7 +129,6 @@ function renderCart(){
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// ===== SEARCH =====
 let searchInput = document.getElementById("search");
 if(searchInput){
     searchInput.addEventListener("keyup", function(){
@@ -144,14 +140,12 @@ if(searchInput){
     });
 }
 
-// ===== USER SYSTEM =====
 let users = JSON.parse(localStorage.getItem("users")) || [];
 
 function hashPassword(p){
     return btoa(p);
 }
 
-// tạo admin
 if(!users.find(u => u.username === "admin")){
     users.push({
         username:"admin",
@@ -161,7 +155,6 @@ if(!users.find(u => u.username === "admin")){
     localStorage.setItem("users", JSON.stringify(users));
 }
 
-// REGISTER
 function register(){
     let username = document.getElementById("regUser")?.value.trim();
     let password = document.getElementById("regPass")?.value.trim();
@@ -191,7 +184,6 @@ function register(){
     },1000);
 }
 
-// LOGIN
 function login(){
     let username = document.getElementById("loginUser")?.value.trim();
     let password = hashPassword(document.getElementById("loginPass")?.value.trim());
@@ -212,7 +204,6 @@ function login(){
     }
 }
 
-// ===== AUTH UI =====
 function goToLogin(){
     window.location.href = "login.html";
 }
@@ -242,11 +233,61 @@ function updateAuthUI(){
     }
 }
 
-// ===== INIT =====
 if(document.getElementById("productList")){
     displayProducts(products);
     renderCart();
     setInterval(nextProduct, 3000);
+}
+
+function increaseQty(id){
+    let item = cart.find(p => p.id === id);
+    if(item){
+        item.qty++;
+        renderCart();
+    }
+}
+
+function decreaseQty(id){
+    let item = cart.find(p => p.id === id);
+    if(item){
+        item.qty--;
+        if(item.qty <= 0){
+            cart = cart.filter(p => p.id !== id);
+        }
+        renderCart();
+    }
+}
+
+function removeItem(id){
+    cart = cart.filter(p => p.id !== id);
+    renderCart();
+}
+
+function checkout(){
+    if(cart.length === 0){
+        alert("Giỏ hàng đang trống!");
+        return;
+    }
+
+    let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+    alert("Thanh toán thành công!\nTổng tiền: " + total + " đ");
+
+    cart = [];
+    localStorage.removeItem("cart");
+    renderCart();
+}
+
+function showCategory(category){
+    let filtered;
+
+    if(category === "all"){
+        filtered = products;
+    } else {
+        filtered = products.filter(p => p.category === category);
+    }
+
+    displayProducts(filtered);
 }
 
 updateAuthUI();

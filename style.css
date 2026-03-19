@@ -4,7 +4,6 @@ margin:0;
 background:#f4f6f9;
 }
 
-/* ===== HEADER ===== */
 .header{
 display:flex;
 align-items:center;
@@ -42,7 +41,6 @@ border-radius:5px;
 border:none;
 }
 
-/* ===== USER ===== */
 #userBox{
 display:flex;
 align-items:center;
@@ -57,18 +55,15 @@ background:#e74c3c;
 background:#c0392b;
 }
 
-/* ===== TITLE ===== */
 .title{
 margin:20px;
 }
 
-/* ===== SLIDER FIX 5 SP ===== */
 .slider{
 position:relative;
 padding:20px 60px;
 }
 
-/* KHUNG CHỨA CHỈ 5 SẢN PHẨM */
 .products-wrapper{
 overflow:hidden;
 width:1100px;
@@ -80,7 +75,6 @@ display:flex;
 transition:transform 0.5s ease;
 }
 
-/* MỖI SẢN PHẨM */
 .product{
 background:white;
 border-radius:10px;
@@ -111,7 +105,6 @@ color:red;
 font-weight:bold;
 }
 
-/* ===== BUTTON ===== */
 button{
 padding:8px 12px;
 border:none;
@@ -125,7 +118,6 @@ button:hover{
 background:#2980b9;
 }
 
-/* ===== NAV ===== */
 .nav{
 position:absolute;
 top:50%;
@@ -140,7 +132,6 @@ font-size:25px;
 .left{ left:0; }
 .right{ right:0; }
 
-/* ===== CART ===== */
 #cart{
 background:white;
 margin:20px;
@@ -154,7 +145,6 @@ border-bottom:1px solid #eee;
 padding:8px;
 }
 
-/* ===== LOGIN ===== */
 .auth{
 background:white;
 margin:50px auto;
