@@ -9,7 +9,6 @@
 <body>
 
 <header class="header">
-
 <div class="shop-name">SUI SHOP</div>
 
 <nav class="menu">
@@ -27,7 +26,6 @@
 <button id="loginBtn" onclick="goToLogin()">Đăng nhập</button>
 <button id="logoutBtn" onclick="logout()">Đăng xuất</button>
 </div>
-
 </header>
 
 <h2 class="title">Danh sách sản phẩm</h2>
@@ -45,10 +43,25 @@
 <h2 class="title">Giỏ hàng 🛒</h2>
 <ul id="cart"></ul>
 
-<button onclick="checkout()" style="margin:20px;background:#27ae60">
+<button onclick="showCheckout()" style="margin:20px;background:#27ae60">
 Thanh toán
 </button>
 
-<script src="script.js" defer></script>
+<!-- CHECKOUT -->
+<div id="checkoutBox" class="checkout">
+<h2>Thanh toán</h2>
+
+<input type="text" id="phone" placeholder="Số điện thoại">
+<input type="text" id="address" placeholder="Địa chỉ">
+
+<select id="paymentMethod">
+<option value="cod">Thanh toán khi nhận hàng</option>
+<option value="bank">Chuyển khoản</option>
+</select>
+
+<button onclick="confirmCheckout()">Xác nhận</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

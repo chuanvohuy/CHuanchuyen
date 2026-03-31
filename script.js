@@ -1,5 +1,6 @@
-console.log("JS ĐANG CHẠY OK");
+console.log("RUN OK");
 
+/* ===== 28 SẢN PHẨM ===== */
 let products = [
 {id:1,name:"Áo thun Big Deal",price:1500000,category:"ao",image:"./anh1.webp"},
 {id:2,name:"Áo khoác Cheonliang",price:450000,category:"ao",image:"./anh2.jfif"},
@@ -34,11 +35,13 @@ let products = [
 {id:28,name:"Túi đeo chéo",price:300000,category:"phukien",image:"./anh28.jpg"}
 ];
 
+/* ===== BIẾN ===== */
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let currentProducts = [...products];
 let currentIndex = 0;
 let visibleProducts = 5;
 
+/* ===== HIỂN THỊ SẢN PHẨM ===== */
 function displayProducts(list){
     let container = document.getElementById("productList");
     if(!container) return;
@@ -61,16 +64,14 @@ function displayProducts(list){
     updateSlider();
 }
 
+/* ===== SLIDER ===== */
 function updateSlider(){
-    let container = document.getElementById("productList");
-    let firstProduct = document.querySelector(".product");
+    let first = document.querySelector(".product");
+    if(!first) return;
 
-    if(!container || !firstProduct) return;
-
-    let productWidth = firstProduct.offsetWidth + 20;
-
-    container.style.transform =
-        `translateX(-${currentIndex * productWidth}px)`;
+    let w = first.offsetWidth + 20;
+    document.getElementById("productList").style.transform =
+        `translateX(-${currentIndex * w}px)`;
 }
 
 function nextProduct(){
@@ -89,22 +90,20 @@ function prevProduct(){
     updateSlider();
 }
 
+/* ===== CART ===== */
 function addToCart(id){
     let item = cart.find(p => p.id === id);
 
     if(item){
         item.qty++;
     }else{
-        let product = products.find(p => p.id === id);
-        cart.push({id:product.id,name:product.name,price:product.price,qty:1});
+        let p = products.find(x=>x.id===id);
+        cart.push({id:p.id,name:p.name,price:p.price,qty:1});
     }
     renderCart();
 }
 
 function renderCart(){
-    let container = document.getElementById("cart");
-    if(!container) return;
-
     let html = "";
     let total = 0;
 
@@ -124,127 +123,14 @@ function renderCart(){
     });
 
     html += `<h3>Tổng tiền: ${total} đ</h3>`;
-    container.innerHTML = html;
+    document.getElementById("cart").innerHTML = html;
 
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-let searchInput = document.getElementById("search");
-if(searchInput){
-    searchInput.addEventListener("keyup", function(){
-        let keyword = this.value.toLowerCase();
-        let filtered = products.filter(p =>
-            p.name.toLowerCase().includes(keyword)
-        );
-        displayProducts(filtered);
-    });
-}
-
-let users = JSON.parse(localStorage.getItem("users")) || [];
-
-function hashPassword(p){
-    return btoa(p);
-}
-
-if(!users.find(u => u.username === "admin")){
-    users.push({
-        username:"admin",
-        password:hashPassword("123456"),
-        role:"admin"
-    });
-    localStorage.setItem("users", JSON.stringify(users));
-}
-
-function register(){
-    let username = document.getElementById("regUser")?.value.trim();
-    let password = document.getElementById("regPass")?.value.trim();
-
-    if(!username || !password){
-        document.getElementById("authStatus").innerText="Nhập đủ thông tin!";
-        return;
-    }
-
-    if(users.find(u => u.username === username)){
-        document.getElementById("authStatus").innerText="Tên đã tồn tại!";
-        return;
-    }
-
-    users.push({
-        username,
-        password:hashPassword(password),
-        role:"user"
-    });
-
-    localStorage.setItem("users", JSON.stringify(users));
-
-    document.getElementById("authStatus").innerText="Đăng ký thành công!";
-
-    setTimeout(()=>{
-        window.location.href="index.html";
-    },1000);
-}
-
-function login(){
-    let username = document.getElementById("loginUser")?.value.trim();
-    let password = hashPassword(document.getElementById("loginPass")?.value.trim());
-
-    let user = users.find(u =>
-        u.username === username && u.password === password
-    );
-
-    if(user){
-        localStorage.setItem("currentUser", JSON.stringify(user));
-        document.getElementById("authStatus").innerText="Đăng nhập thành công!";
-
-        setTimeout(()=>{
-            window.location.href="index.html";
-        },1000);
-    }else{
-        document.getElementById("authStatus").innerText="Sai tài khoản!";
-    }
-}
-
-function goToLogin(){
-    window.location.href = "login.html";
-}
-
-function logout(){
-    localStorage.removeItem("currentUser");
-    location.reload();
-}
-
-function updateAuthUI(){
-    let user = JSON.parse(localStorage.getItem("currentUser"));
-
-    let loginBtn = document.getElementById("loginBtn");
-    let logoutBtn = document.getElementById("logoutBtn");
-    let welcome = document.getElementById("welcome");
-
-    if(!loginBtn || !logoutBtn || !welcome) return;
-
-    if(user){
-        welcome.innerText = "Xin chào, " + user.username;
-        loginBtn.style.display = "none";
-        logoutBtn.style.display = "inline-block";
-    }else{
-        welcome.innerText = "";
-        loginBtn.style.display = "inline-block";
-        logoutBtn.style.display = "none";
-    }
-}
-
-if(document.getElementById("productList")){
-    displayProducts(products);
-    renderCart();
-    setInterval(nextProduct, 3000);
-}
-
 function increaseQty(id){
     let item = cart.find(p => p.id === id);
-    if(item){
-        item.qty++;
-        renderCart();
-    }
+    if(item){ item.qty++; renderCart(); }
 }
 
 function decreaseQty(id){
@@ -263,31 +149,159 @@ function removeItem(id){
     renderCart();
 }
 
-function checkout(){
+/* ===== SEARCH ===== */
+let search = document.getElementById("search");
+if(search){
+    search.addEventListener("keyup", function(){
+        let k = this.value.toLowerCase();
+        let filtered = products.filter(p =>
+            p.name.toLowerCase().includes(k)
+        );
+        displayProducts(filtered);
+    });
+}
+
+/* ===== CATEGORY ===== */
+function showCategory(category){
+    if(category === "all"){
+        displayProducts(products);
+    }else{
+        displayProducts(products.filter(p => p.category === category));
+    }
+}
+
+/* ===== CHECKOUT ===== */
+function showCheckout(){
     if(cart.length === 0){
-        alert("Giỏ hàng đang trống!");
+        alert("Giỏ hàng trống!");
+        return;
+    }
+    document.getElementById("checkoutBox").style.display = "block";
+}
+
+function confirmCheckout(){
+    let phone = document.getElementById("phone").value.trim();
+    let address = document.getElementById("address").value.trim();
+    let method = document.getElementById("paymentMethod").value;
+
+    if(phone === "" || address === ""){
+        alert("Nhập SĐT và địa chỉ!");
         return;
     }
 
-    let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+    let total = cart.reduce((s,i)=>s+i.price*i.qty,0);
 
-    alert("Thanh toán thành công!\nTổng tiền: " + total + " đ");
+    alert(
+        "Đặt hàng thành công!\n" +
+        "SĐT: "+phone+"\n" +
+        "Địa chỉ: "+address+"\n" +
+        "PTTT: "+(method==="cod"?"COD":"Chuyển khoản")+"\n" +
+        "Tổng: "+total+" đ"
+    );
 
     cart = [];
     localStorage.removeItem("cart");
     renderCart();
+    document.getElementById("checkoutBox").style.display = "none";
 }
 
-function showCategory(category){
-    let filtered;
+/* ===== USER ===== */
+let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    if(category === "all"){
-        filtered = products;
-    } else {
-        filtered = products.filter(p => p.category === category);
+function hashPassword(p){ return btoa(p); }
+
+if(!users.find(u=>u.username==="admin")){
+    users.push({username:"admin",password:hashPassword("123456")});
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+function register(){
+    let u = document.getElementById("regUser").value.trim();
+    let p = document.getElementById("regPass").value.trim();
+
+    if(u === "" || p === ""){
+        alert("Nhập đầy đủ!");
+        return;
     }
 
-    displayProducts(filtered);
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if(users.find(x => x.username === u)){
+        alert("Tên đã tồn tại!");
+        return;
+    }
+
+    users.push({
+        username: u,
+        password: btoa(p)
+    });
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Đăng ký thành công!");
+
+    // ✅ XÓA INPUT SAU KHI ĐK
+    document.getElementById("regUser").value = "";
+    document.getElementById("regPass").value = "";
+}
+
+function login(){
+    let u = document.getElementById("loginUser").value.trim();
+    let p = btoa(document.getElementById("loginPass").value.trim());
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    let user = users.find(x => x.username === u && x.password === p);
+
+    if(user){
+        localStorage.setItem("currentUser", JSON.stringify(user));
+
+        alert("Đăng nhập thành công!");
+
+        // XÓA INPUT
+        document.getElementById("loginUser").value = "";
+        document.getElementById("loginPass").value = "";
+
+        // CHUYỂN TRANG
+        location.href = "index.html";
+    }else{
+        alert("Sai tài khoản hoặc mật khẩu!");
+    }
+}
+
+function logout(){
+    localStorage.removeItem("currentUser");
+    location.reload();
+}
+
+function goToLogin(){
+    location.href="login.html";
+}
+
+function updateAuthUI(){
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    let welcome = document.getElementById("welcome");
+    let loginBtn = document.getElementById("loginBtn");
+    let logoutBtn = document.getElementById("logoutBtn");
+
+    if(!welcome) return;
+
+    if(user){
+        welcome.innerText="Xin chào "+user.username;
+        loginBtn.style.display="none";
+        logoutBtn.style.display="inline-block";
+    }else{
+        welcome.innerText="";
+        loginBtn.style.display="inline-block";
+        logoutBtn.style.display="none";
+    }
+}
+
+/* ===== LOAD ===== */
+if(document.getElementById("productList")){
+    displayProducts(products);
+    renderCart();
+    setInterval(nextProduct,3000);
 }
 
 updateAuthUI();

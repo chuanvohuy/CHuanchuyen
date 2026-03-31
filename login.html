@@ -2,29 +2,33 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Đăng nhập</title>
+<title>Đăng nhập - SUI SHOP</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="login-body">
 
-<div class="auth">
+<div class="login-container">
 
-<h2>Đăng ký</h2>
-<input type="text" id="regUser" placeholder="Tên tài khoản">
-<input type="password" id="regPass" placeholder="Mật khẩu">
-<button onclick="register()">Tạo tài khoản</button>
+    <h2>SUI SHOP</h2>
 
-<h2>Đăng nhập</h2>
-<input type="text" id="loginUser" placeholder="Tên tài khoản">
-<input type="password" id="loginPass" placeholder="Mật khẩu">
-<button onclick="login()">Đăng nhập</button>
+    <!-- LOGIN -->
+    <div class="box">
+        <h3>Đăng nhập</h3>
+        <input id="loginUser" placeholder="Tên đăng nhập">
+        <input id="loginPass" type="password" placeholder="Mật khẩu">
+        <button onclick="login()">Đăng nhập</button>
+    </div>
 
-<p id="authStatus"></p>
+    <!-- REGISTER -->
+    <div class="box">
+        <h3>Đăng ký</h3>
+        <input id="regUser" placeholder="Tên đăng nhập">
+        <input id="regPass" type="password" placeholder="Mật khẩu">
+        <button onclick="register()">Đăng ký</button>
+    </div>
 
-<button onclick="window.location.href='index.html'" style="margin-top:10px;background:#27ae60">
-⬅ Quay lại trang chủ
-</button>
+    <button class="back-btn" onclick="location.href='index.html'">⬅ Quay lại</button>
 
 </div>
 
